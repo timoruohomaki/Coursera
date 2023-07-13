@@ -56,6 +56,7 @@ extractDataset$code <- activityLabels[extractDataset$code, 2]
 
 # 4) apply appropriate labels with descriptive variable names
 
+names(extractDataset)[1] = "Subject"
 names(extractDataset)[2] = "Activity"
 names(extractDataset) <- gsub("Acc", "Accelerometer", names(extractDataset))
 names(extractDataset) <- gsub("BodyBody", "Body", names(extractDataset))
@@ -73,13 +74,10 @@ names(extractDataset) <- gsub("gravity", "Gravity", names(extractDataset))
 # 5) Create second, independent tidy data set with averages and export it as a file
 
 dataProduct <- extractDataset %>%
-  group_by(subject, Activity) %>%
+  group_by(Subject, Activity) %>%
   summarise_all(funs(mean))
 
 write_excel_csv(dataProduct, "UCI-DataProduct.csv")
-
-write.table(dataProduct, "UCI-DataProduct.txt", row.name = FALSE)
-
 
 # Final checks
 
