@@ -23,7 +23,9 @@ The assignment deliverable is a R script that does the following:
 This codebook has been created using with *Knitr* using *rmarkdown*
 package.
 
-### Dependencies (Packages)
+## Dependencies (Packages)
+
+The following packages are required to run the script:
 
 ``` r
 library(readr)
@@ -179,10 +181,56 @@ the dataset as separate text files. The variables are:
     ##  $ tBodyAccJerk.energy...Y             : num  -1 -1 -1 -1 -1 ...
     ##   [list output truncated]
 
-#### Step 2: Extract only the measurements on the mean and standard deviation for each measurement
+## Step 2: Extract only the measurements on the mean and standard deviation for each measurement
 
 ``` r
   extractDataset <- masterDataset %>% select(subject, code, contains("mean"), contains("std"))
+```
 
+## Step 3: Use descriptive activity names to name the activities in the data set
+
+``` r
   extractDataset$code <- activityLabels[extractDataset$code, 2]
+```
+
+## Step 4: Appropriately label the data set with descriptive variable names
+
+``` r
+names(extractDataset)[1] = "Subject"
+names(extractDataset)[2] = "Activity"
+names(extractDataset) <- gsub("Acc", "Accelerometer", names(extractDataset))
+names(extractDataset) <- gsub("BodyBody", "Body", names(extractDataset))
+names(extractDataset) <- gsub("Gyro", "Gyroscope", names(extractDataset))
+names(extractDataset) <- gsub("Mag", "Magnitude", names(extractDataset))
+names(extractDataset) <- gsub("^t", "Time", names(extractDataset))
+names(extractDataset) <- gsub("^f", "Frequency", names(extractDataset))
+names(extractDataset) <- gsub("tBody", "TimeBody", names(extractDataset))
+names(extractDataset) <- gsub("-mean()", "Mean", names(extractDataset), ignore.case = TRUE)
+names(extractDataset) <- gsub("-std()", "STD", names(extractDataset), ignore.case = TRUE)
+names(extractDataset) <- gsub("-freq()", "Frequency", names(extractDataset), ignore.case = TRUE)
+names(extractDataset) <- gsub("angle", "Angle", names(extractDataset))
+names(extractDataset) <- gsub("gravity", "Gravity", names(extractDataset))
+```
+
+## Step 5: From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+``` r
+dataProduct <- extractDataset %>%
+  group_by(Subject, Activity) %>%
+  summarise_all(funs(mean))
+```
+
+    ## Warning: `funs()` was deprecated in dplyr 0.8.0.
+    ## ℹ Please use a list of either functions or lambdas:
+    ## 
+    ## # Simple named list: list(mean = mean, median = median)
+    ## 
+    ## # Auto named with `tibble::lst()`: tibble::lst(mean, median)
+    ## 
+    ## # Using lambdas list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
+
+``` r
+write_excel_csv(dataProduct, "UCI-DataProduct.csv")
 ```
