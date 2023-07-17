@@ -20,6 +20,9 @@ The assignment deliverable is a R script that does the following:
     set with the average of each variable for each activity and each
     subject.
 
+This codebook has been created using with *Knitr* using *rmarkdown*
+package.
+
 #### Dependencies (Packages)
 
 ``` r
