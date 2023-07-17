@@ -23,6 +23,28 @@ The assignment deliverable is a R script that does the following:
 This codebook has been created using with *Knitr* using *rmarkdown*
 package.
 
+## Description of Variables
+
+The following code is used to import the various datasets included in
+the dataset as separate text files. The variables are:
+
+| variable       | description                                                                                                  |
+|------------------------------------|------------------------------------|
+| featureData    | List of all features                                                                                         |
+| activityLabels | Links the class tables with their activity name                                                              |
+| subjectTest    | Each row identidies the subject who performed the activity for each window sample, with a range from 1 to 30 |
+| xTestData      | Test set                                                                                                     |
+| yTestData      | Test labels                                                                                                  |
+| subjectTrain   | Each row identidies the subject who performed the activity for each window sample, with a range from 1 to 30 |
+| xTrainData     | Train set                                                                                                    |
+| yTrainData     | Train labels                                                                                                 |
+
+In the source dataset features are normalized and bounded within
+\[-1,1\]. Each feature vector is a row on the text file
+
+For more details on variables within the data sets, see
+features_info.txt that has been included in the dataset.
+
 ## Dependencies (Packages)
 
 The following packages are required to run the script:
@@ -45,15 +67,6 @@ library(dplyr)
     ##     intersect, setdiff, setequal, union
 
 ## Step 1: Merge the training and the test sets to create one data set.
-
-The following code is used to import the various datasets included in
-the dataset as separate text files. The variables are:
-
-| variable       | description                                                                                                  |
-|------------------------------------|------------------------------------|
-| featureData    | List of all features                                                                                         |
-| activityLabels | Links the class tables with their activity name                                                              |
-| subjectTest    | Each row identidies the subject who performed the activity for each window sample, with a range from 1 to 30 |
 
 ``` r
   featureData <- read.table("ucidataset/features.txt", col.names = c("n","functions"))
