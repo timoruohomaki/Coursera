@@ -13,7 +13,7 @@ This work uses dataset ``Human Activity Recognition Using Smartphones``
 
 This repository contains:
 
-1) A code book that describes the variables
+1) A [code book](CodeBook.md) that describes the variables
 2) The R Script to run the analysis
 3) A csv file (Excel compatible) to display the tidy, complete dataset
 
