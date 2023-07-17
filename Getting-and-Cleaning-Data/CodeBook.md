@@ -45,7 +45,7 @@ library(dplyr)
 #### Source Code
 
 ``` r
-  # 1) creating all the data frames, one for each type of observations
+  # 1) Merges the training and the test sets to create one data set.
 
   featureData <- read.table("ucidataset/features.txt", col.names = c("n","functions"))
   activityLabels <- read.table("ucidataset/activity_labels.txt", col.names = c("code","activity"))
@@ -59,23 +59,21 @@ library(dplyr)
   xTrainData <- read.table("ucidataset/train/X_train.txt", col.names = featureData$functions)
   yTrainData <- read.table("ucidataset/train/Y_train.txt", col.names = "code")
 
-  # 1) merge test and training data
-  
   xData <- rbind(xTrainData, xTestData)
   yData <- rbind(yTrainData, yTestData)
 
   subjectData <- rbind(subjectTrain, subjectTest)
   
-  summary(subjectData)
+  head(subjectData)
 ```
 
-    ##     subject     
-    ##  Min.   : 1.00  
-    ##  1st Qu.: 9.00  
-    ##  Median :17.00  
-    ##  Mean   :16.15  
-    ##  3rd Qu.:24.00  
-    ##  Max.   :30.00
+    ##   subject
+    ## 1       1
+    ## 2       1
+    ## 3       1
+    ## 4       1
+    ## 5       1
+    ## 6       1
 
 #### Step 3:Create one master (merged) dataset
 
