@@ -47,8 +47,10 @@ library(dplyr)
 The following code is used to import the various datasets included in
 the dataset as separate text files. The variables are:
 
-\|—-\|—-\| \| featureData \| List of all features \| \| activityLabels
-\| Links the class tables with their activity name \| \|—-\|—-\|
+| variable       | description                                     |
+|----------------|-------------------------------------------------|
+| featureData    | List of all features                            |
+| activityLabels | Links the class tables with their activity name |
 
 ``` r
   featureData <- read.table("ucidataset/features.txt", col.names = c("n","functions"))
