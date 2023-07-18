@@ -18,11 +18,9 @@ library(readr)
 # libraries for notebook generation:
 library(knitr)
 
-# getting and unzipping the dataset
+# getting and unzipping the dataset manually to the following folder:
 
 if(!file.exists("./data")){dir.create("./ucidataset")}
-
-
 
 # creating all the data frames, one for each type of observations
 
