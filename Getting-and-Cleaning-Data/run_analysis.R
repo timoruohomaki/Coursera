@@ -18,6 +18,11 @@ library(readr)
 # libraries for notebook generation:
 library(knitr)
 
+# getting and unzipping the dataset
+
+if(!file.exists("./data")){dir.create("./ucidataset")}
+
+
 
 # creating all the data frames, one for each type of observations
 
@@ -77,13 +82,8 @@ dataProduct <- extractDataset %>%
   group_by(Subject, Activity) %>%
   summarise_all(funs(mean))
 
+write.table(dataProduct, "UCI-DataProduct.txt", row.name=FALSE)
 write_excel_csv(dataProduct, "UCI-DataProduct.csv")
-
-# Final checks
-
-str(extractDataset)
-
-dataProduct
 
 
 
